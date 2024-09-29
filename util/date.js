@@ -9,3 +9,7 @@ export default function getFormattedDate(date) {
 
   return `${year}-${month}-${day}`;
 }
+
+export function getDateMinusDays(date, days) {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate() - days);
+}
