@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { GlobalStyles } from "../../constants/styles";
-import getFormattedDate from "../../util/date";
+import { getFormattedDate } from "../../util/date";
 
-export default function ExpenseItems({ id, description, date, amount }) {
+function ExpenseItem({ id, description, amount, date }) {
   const navigation = useNavigation();
 
   function expensePressHandler() {
@@ -17,7 +17,6 @@ export default function ExpenseItems({ id, description, date, amount }) {
     <Pressable
       onPress={expensePressHandler}
       style={({ pressed }) => pressed && styles.pressed}
-      android_ripple={{ backgroundColor: GlobalStyles.colors.primary500 }}
     >
       <View style={styles.expenseItem}>
         <View>
@@ -26,7 +25,6 @@ export default function ExpenseItems({ id, description, date, amount }) {
           </Text>
           <Text style={styles.textBase}>{getFormattedDate(date)}</Text>
         </View>
-
         <View style={styles.amountContainer}>
           <Text style={styles.amount}>{amount.toFixed(2)}</Text>
         </View>
@@ -34,6 +32,8 @@ export default function ExpenseItems({ id, description, date, amount }) {
     </Pressable>
   );
 }
+
+export default ExpenseItem;
 
 const styles = StyleSheet.create({
   pressed: {
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     backgroundColor: GlobalStyles.colors.primary500,
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
+    borderRadius: 6,
     elevation: 3,
     shadowColor: GlobalStyles.colors.gray500,
     shadowRadius: 4,
